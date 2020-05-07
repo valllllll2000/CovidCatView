@@ -2,8 +2,11 @@ package com.vaxapp.covid19.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.vaxapp.covid19.R
 import com.vaxapp.covid19.view.SettingsActivity
@@ -25,7 +28,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         presenter.view = this
-        presenter.onViewReady()
+        editText.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_DONE && v != null) {
+                    val input = v.text.toString()
+                    presenter.loadCases(input)
+                    return true
+                }
+                return false
+            }
+        })
     }
 
     override fun showError(error: Throwable) {
@@ -34,16 +46,16 @@ class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
     }
 
     override fun showLoading() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented")
     }
 
     override fun hideLoading() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO("not implemented")
     }
 
-    override fun display(response: ViewResponse) {
+    override fun display(response: ViewResponse, town: String) {
         info("channel $response")
-        descriptionTv.text = "Calella Today"
+        descriptionTv.text = "${town} Today"
         field1Content.text = "Suspicious cases: ${response.casesNumberSuspicious}"
         field2Content.text = "Confirmed cases: ${response.casesNumberConfirmed}"
         totalTv.text =

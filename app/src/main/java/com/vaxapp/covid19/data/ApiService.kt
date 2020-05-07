@@ -15,11 +15,15 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("https://analisi.transparenciacatalunya.cat/resource/jj6z-iyrp.json?municipidescripcio=Calella")
-    fun fetchCases(): Single<List<Response>>
+    @GET("resource/jj6z-iyrp.json")
+    fun fetchCases(@Query("municipidescripcio") town: String): Single<List<Response>>
+
+    @GET("resource/jj6z-iyrp.json")
+    fun fetchAllCases(): Single<List<Response>>
 
     companion object {
 
@@ -78,7 +82,7 @@ interface ApiService {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://api.thingspeak.com/channels/298096/")
+                .baseUrl("https://analisi.transparenciacatalunya.cat")
                 .client(client)
                 .addConverterFactory(
                     GsonConverterFactory.create()

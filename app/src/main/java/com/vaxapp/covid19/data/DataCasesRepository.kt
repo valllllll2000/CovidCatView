@@ -6,8 +6,8 @@ import io.reactivex.Single
 
 class DataCasesRepository(private val dataSource: CasesApiDataSource) : CasesRepository {
 
-    override fun getCases(): Single<List<DomainResponse>> {
-        return dataSource.fetchCases().map { toDomainResponse(it) }
+    override fun getCases(town: String): Single<List<DomainResponse>> {
+        return dataSource.fetchCases(town).map { toDomainResponse(it) }
     }
 
     private fun toDomainResponse(apiResults: List<Response>): List<DomainResponse> {

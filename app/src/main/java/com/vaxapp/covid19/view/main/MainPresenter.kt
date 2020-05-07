@@ -9,17 +9,20 @@ class MainPresenter(private val useCase: GetCasesUseCase, private val mapper: Vi
     var view: MainView? = null
     private var disposable: Disposable? = null
 
-    fun onViewReady() {
+    fun loadCases(town: String) {
         view?.showLoading()
-        disposable = useCase.getCases()
-            .subscribe({ result -> display(result) },
+        disposable = useCase.getCases(town)
+            .subscribe({ result -> display(result, town) },
                 { error -> view?.showError(error) })
     }
 
-    private fun display(result: List<DomainResponse>) {
+    private fun display(
+        result: List<DomainResponse>,
+        town: String
+    ) {
         val cases = mapper.toViewResponse(result)
         view?.hideLoading()
-        view?.display(cases)
+        view?.display(cases, town)
     }
 
     fun dispose() {

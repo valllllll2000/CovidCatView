@@ -6,8 +6,8 @@ import io.reactivex.schedulers.Schedulers
 
 class GetCasesUseCase(private val repository: CasesRepository) {
 
-    fun getCases(): Single<List<DomainResponse>> {
-        return repository.getCases().subscribeOn(Schedulers.io())
+    fun getCases(town: String): Single<List<DomainResponse>> {
+        return repository.getCases(town).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 }

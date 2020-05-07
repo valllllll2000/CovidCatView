@@ -4,5 +4,5 @@ import io.reactivex.Single
 
 interface CasesRepository {
 
-    fun getCases(): Single<List<DomainResponse>>
+    fun getCases(town: String): Single<List<DomainResponse>>
 }
