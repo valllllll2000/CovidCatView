@@ -1,8 +1,8 @@
-package com.vaxapp.thingspeakviewer.view
+package com.vaxapp.covid19.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.vaxapp.thingspeakviewer.R
+import com.vaxapp.covid19.R
 import kotlinx.android.synthetic.main.app_bar.*
 
 class SettingsActivity : AppCompatActivity() {

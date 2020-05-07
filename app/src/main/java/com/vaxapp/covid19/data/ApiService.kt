@@ -1,10 +1,10 @@
-package com.vaxapp.thingspeakviewer.data
+package com.vaxapp.covid19.data
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
-import com.vaxapp.thingspeakviewer.BuildConfig
+import com.vaxapp.covid19.BuildConfig
 import io.reactivex.Single
 import okhttp3.Cache
 import okhttp3.Interceptor
@@ -18,21 +18,27 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    //"https://api.thingspeak.com/channels/298096/feeds.json?results=1"
-    @GET("https://api.thingspeak.com/channels/298096/feeds.json?results=1")
-    fun fetchFields(/*@Query("results") results: Int = 1*/): Single<ApiResponse>
+    @GET("https://analisi.transparenciacatalunya.cat/resource/jj6z-iyrp.json?municipidescripcio=Calella")
+    fun fetchCases(): Single<List<Response>>
 
     companion object {
 
         private val REWRITE_RESPONSE_INTERCEPTOR = Interceptor { chain ->
-            val originalResponse = chain.proceed(chain.request())
+            val originalResponse: okhttp3.Response = if (BuildConfig.API_TOKEN.isNotEmpty()) {
+                chain.proceed(chain.request()).newBuilder()
+                    .header("X-App-Token", BuildConfig.API_TOKEN)
+                    .build()
+            } else {
+                chain.proceed(chain.request())
+            }
             val cacheControl = originalResponse.header("Cache-Control")
             if (cacheControl == null || cacheControl.contains("no-store") || cacheControl.contains("no-cache") ||
-                    cacheControl.contains("must-revalidate") || cacheControl.contains("max-age=0")) {
+                cacheControl.contains("must-revalidate") || cacheControl.contains("max-age=0")
+            ) {
                 originalResponse.newBuilder()
-                        .removeHeader("Pragma")
-                        .header("Cache-Control", "public, max-age=" + 5000)
-                        .build()
+                    .removeHeader("Pragma") //TODO: is this needed here?
+                    .header("Cache-Control", "public, max-age=" + 5000)
+                    .build()
             } else {
                 originalResponse
             }
@@ -49,36 +55,38 @@ interface ApiService {
             val cacheSize = (5 * 1024 * 1024).toLong()
             val myCache = Cache(context.cacheDir, cacheSize)
             val client = OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    // Specify the cache we created earlier.
-                    .cache(myCache)
-                    // Add an Interceptor to the OkHttpClient.
-                    .addInterceptor { chain ->
+                .addInterceptor(interceptor)
+                // Specify the cache we created earlier.
+                .cache(myCache)
+                // Add an Interceptor to the OkHttpClient.
+                .addInterceptor { chain ->
 
-                        /*
-                        *  Leveraging the advantage of using Kotlin,
-                        *  we initialize the request and change its header depending on whether
-                        *  the device is connected to Internet or not.
-                        */
-                        val request = when {
-                            hasNetwork(context) -> createRecentCacheRequest(chain.request())
-                            else -> createOlderCacheRequest(chain.request())
-                        }
-
-                        // Add the modified request to the chain.
-                        chain.proceed(request)
+                    /*
+                    *  Leveraging the advantage of using Kotlin,
+                    *  we initialize the request and change its header depending on whether
+                    *  the device is connected to Internet or not.
+                    */
+                    val request = when {
+                        hasNetwork(context) -> createRecentCacheRequest(chain.request())
+                        else -> createOlderCacheRequest(chain.request())
                     }
-                    .addNetworkInterceptor(REWRITE_RESPONSE_INTERCEPTOR)
-                    .build()
+
+                    // Add the modified request to the chain.
+                    chain.proceed(request)
+                }
+                .addNetworkInterceptor(REWRITE_RESPONSE_INTERCEPTOR)
+                .build()
 
             val retrofit = Retrofit.Builder()
-                    .baseUrl("https://api.thingspeak.com/channels/298096/")
-                    .client(client)
-                    .addConverterFactory(
-                            GsonConverterFactory.create())
-                    .addCallAdapterFactory(
-                            RxJava2CallAdapterFactory.create())
-                    .build()
+                .baseUrl("https://api.thingspeak.com/channels/298096/")
+                .client(client)
+                .addConverterFactory(
+                    GsonConverterFactory.create()
+                )
+                .addCallAdapterFactory(
+                    RxJava2CallAdapterFactory.create()
+                )
+                .build()
 
             return retrofit.create(ApiService::class.java)
         }
@@ -90,12 +98,12 @@ interface ApiService {
          *  The 'max-stale' attribute is responsible for this behavior.
          *  The 'only-if-cached' attribute indicates to not retrieve new data; fetch the cache only instead.
          */
-        private fun createOlderCacheRequest(request: Request) : Request {
+        private fun createOlderCacheRequest(request: Request): Request {
             Log.d("ApiService", "createOlderCacheRequest")
             return request.newBuilder()
-                    .removeHeader("Pragma")
-                    .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7)
-                    .build()
+                .removeHeader("Pragma")
+                .header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7)
+                .build()
         }
 
         /**
@@ -107,14 +115,15 @@ interface ApiService {
         private fun createRecentCacheRequest(request: Request): Request {
             Log.d("ApiService", "createRecentCacheRequest")
             return request.newBuilder()
-                    .removeHeader("Pragma")
-                    .header("Cache-Control", "public, max-age=" + 5)
-                    .build()
+                .removeHeader("Pragma")
+                .header("Cache-Control", "public, max-age=" + 5)
+                .build()
         }
 
         private fun hasNetwork(context: Context): Boolean {
             var isConnected = false
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val connectivityManager =
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
             if (activeNetwork != null && activeNetwork.isConnected) {
                 isConnected = true
@@ -122,7 +131,4 @@ interface ApiService {
             return isConnected
         }
     }
-
-
-
 }

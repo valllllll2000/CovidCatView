@@ -1,4 +1,4 @@
-package com.vaxapp.thingspeakviewer.view.main
+package com.vaxapp.covid19.view.main
 
 
 interface MainView {

@@ -1,4 +1,4 @@
-package com.vaxapp.thingspeakviewer
+package com.vaxapp.covid19
 
 import org.junit.Test
 

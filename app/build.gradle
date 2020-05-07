@@ -2,18 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-apply plugin: 'io.fabric'
-
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    Properties versionProps = loadProperties('version.properties')
+    Properties versionProps = loadProperties('version.properties', true)
+    Properties keysProps = loadProperties('keys.properties', false)
+
     def versionCodeProperty = versionProps['VERSION_CODE'].toInteger()
     defaultConfig {
-        applicationId "com.vaxapp.thingspeakviewer"
+        applicationId "com.vaxapp.covid19"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionCodeProperty
@@ -30,6 +30,10 @@ android {
         }
     }
     buildTypes {
+        buildTypes.each {
+            def apiToken = keysProps['API_TOKEN'].toString()
+            it.buildConfigField "String", "API_TOKEN", "\"${apiToken}\""
+        }
         release {
             minifyEnabled true
             proguardFile 'proguard-files/proguard-rules.pro'
@@ -47,12 +51,12 @@ android {
     }
 }
 
-private Properties loadProperties(String fileName) {
+private Properties loadProperties(String fileName, boolean failIfMissing) {
     Properties versionProps = new Properties()
     def versionPropsFile = file(fileName)
     if (versionPropsFile.canRead()) {
         versionProps.load(new FileInputStream(versionPropsFile))
-    } else {
+    } else if (failIfMissing) {
         throw new GradleException("Could not read ".fileName)
     }
     versionProps
@@ -77,9 +81,6 @@ dependencies {
     implementation appDependencies.adapterRxJava
     implementation appDependencies.converterGson
     implementation appDependencies.okHttp
-    implementation(appDependencies.crashlytics) {
-        transitive = true;
-    }
 
     testImplementation testDependencies.jUnit
 

@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.vaxapp.thingspeakviewer.view.main.MainActivity">
+        tools:context="com.vaxapp.covid19.view.main.MainActivity">
 
     <include layout="@layout/app_bar"/>
 
@@ -16,7 +16,7 @@
             android:id="@+id/constraintLayout">
 
         <TextView
-                tools:text="Sensor data from RPI zero"
+                tools:text="Title"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:gravity="center_horizontal"
@@ -26,7 +26,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
 
         <TextView
                 tools:text="55.6 %"
@@ -45,7 +44,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"/>
-
 
         <TextView
                 tools:text="21.1 ºC"
@@ -66,7 +64,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"/>
-
 
         <TextView
                 android:textSize="16sp"

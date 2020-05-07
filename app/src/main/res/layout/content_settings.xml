@@ -7,6 +7,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_settings"
-        tools:context="com.vaxapp.thingspeakviewer.view.SettingsActivity">
+        tools:context="com.vaxapp.covid19.view.SettingsActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
