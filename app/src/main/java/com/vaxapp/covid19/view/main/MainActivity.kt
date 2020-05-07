@@ -43,9 +43,11 @@ class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
 
     override fun display(response: ViewResponse) {
         info("channel $response")
-        descriptionTv.text =
+        descriptionTv.text = "Calella Today"
+        field1Content.text = "Suspicious cases: ${response.casesNumberSuspicious}"
+        field2Content.text = "Confirmed cases: ${response.casesNumberConfirmed}"
+        totalTv.text =
             "Total cases ${response.casesNumberSuspicious + response.casesNumberConfirmed}"
-        //descriptionTv.text = "Total cases ${response.casesNumberConfirmed}"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

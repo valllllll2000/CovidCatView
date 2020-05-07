@@ -5,7 +5,7 @@ import com.vaxapp.covid19.di.officeWeatherAppModules
 import org.koin.android.ext.android.startKoin
 
 //TODO: rename
-class OfficeWeatherApp : Application() {
+class Covid19App : Application() {
 
     override fun onCreate() {
         super.onCreate()

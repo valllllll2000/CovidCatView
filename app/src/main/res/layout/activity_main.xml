@@ -1,87 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.vaxapp.covid19.view.main.MainActivity">
-
-    <include layout="@layout/app_bar"/>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.vaxapp.covid19.view.main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/descriptionTv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:id="@+id/constraintLayout">
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
 
         <TextView
-                tools:text="Title"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:gravity="center_horizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/descriptionTv"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+            android:id="@+id/field1Content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionTv" />
 
         <TextView
-                tools:text="55.6 %"
-                android:drawableLeft="@drawable/ic_icons8_humidity"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/field1Content"
-                android:drawableStart="@drawable/ic_icons8_humidity"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/descriptionTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"/>
+            android:id="@+id/field2Content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/totalTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field1Content" />
 
         <TextView
-                tools:text="21.1 ºC"
-                android:drawableLeft="@drawable/ic_icons8_temperature"
-                android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/field2Content"
-                android:drawableStart="@drawable/ic_icons8_temperature"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/field1Content"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toTopOf="@+id/updatedTv"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"/>
-
-        <TextView
-                android:textSize="16sp"
-                tools:text="Last updated: June 15th 2017"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/updatedTv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/field2Content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"/>
+            android:id="@+id/totalTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/field2Content" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/app_bar" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
