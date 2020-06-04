@@ -22,7 +22,6 @@ ext {
     constraintVersion = '2.0.0-alpha2'
     ankoVersion = '0.8.3'
     koinVersion = '1.0.1'
-    crashlyticsVersion = '2.9.2@aar'
 
     //Tests
     junitVersion = '4.12'
@@ -55,7 +54,6 @@ ext {
             retrofit: "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             adapterRxJava: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             converterGson: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            okHttp: "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
-            crashlytics: "com.crashlytics.sdk.android:crashlytics:${crashlyticsVersion}"
+            okHttp: "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
     ]
 }

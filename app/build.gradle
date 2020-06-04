@@ -2,10 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
-
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     Properties versionProps = loadProperties('version.properties', true)
