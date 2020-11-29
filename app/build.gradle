@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -45,6 +46,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 private Properties loadProperties(String fileName, boolean failIfMissing) {
@@ -65,18 +69,18 @@ dependencies {
     def androidTestDependencies = rootProject.ext.androidTestDependencies
 
     implementation appDependencies.kotlin
-    implementation appDependencies.rxAndroid
     implementation appDependencies.appCompat
     implementation appDependencies.vectorDrawable
     implementation appDependencies.recyclerView
     implementation appDependencies.material
     implementation appDependencies.constraintLayout
-    implementation appDependencies.anko
     implementation appDependencies.koin
     implementation appDependencies.retrofit
-    implementation appDependencies.adapterRxJava
     implementation appDependencies.converterGson
     implementation appDependencies.okHttp
+    implementation appDependencies.roomRuntime
+    kapt appDependencies.roomCompiler
+    implementation appDependencies.roomKtx
 
     testImplementation testDependencies.jUnit
 

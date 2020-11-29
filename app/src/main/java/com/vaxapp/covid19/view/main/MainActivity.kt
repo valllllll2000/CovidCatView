@@ -2,23 +2,21 @@ package com.vaxapp.covid19.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.vaxapp.covid19.R
 import com.vaxapp.covid19.view.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.error
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 import org.koin.android.ext.android.inject
 
-class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
+class MainActivity : AppCompatActivity(), MainView {
 
     private val presenter: MainPresenter by inject()
 
@@ -45,6 +43,10 @@ class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
         error(error)
     }
 
+    private fun toast(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_LONG).show()
+    }
+
     override fun showLoading() {
         //TODO("not implemented")
     }
@@ -53,8 +55,9 @@ class MainActivity : AppCompatActivity(), AnkoLogger, MainView {
         //TODO("not implemented")
     }
 
+    //TODO: refactor strings
     override fun display(response: ViewResponse, town: String) {
-        info("channel $response")
+        Log.d("MainActivity", "channel $response")
         descriptionTv.text = "${town} Today"
         field1Content.text = "Suspicious cases: ${response.casesNumberSuspicious}"
         field2Content.text = "Confirmed cases: ${response.casesNumberConfirmed}"

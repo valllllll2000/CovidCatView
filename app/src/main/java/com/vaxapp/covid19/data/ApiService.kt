@@ -5,14 +5,12 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
 import com.vaxapp.covid19.BuildConfig
-import io.reactivex.Single
 import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,10 +18,10 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("resource/jj6z-iyrp.json")
-    fun fetchCases(@Query("municipidescripcio") town: String): Single<List<Response>>
+    suspend fun fetchCases(@Query("municipidescripcio") town: String): List<Response>
 
     @GET("resource/jj6z-iyrp.json")
-    fun fetchAllCases(): Single<List<Response>>
+    suspend fun fetchAllCases(): List<Response>
 
     companion object {
 
@@ -84,12 +82,7 @@ interface ApiService {
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://analisi.transparenciacatalunya.cat")
                 .client(client)
-                .addConverterFactory(
-                    GsonConverterFactory.create()
-                )
-                .addCallAdapterFactory(
-                    RxJava2CallAdapterFactory.create()
-                )
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
             return retrofit.create(ApiService::class.java)

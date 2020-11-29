@@ -15,13 +15,14 @@ ext {
     rxKotlinVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
     gsonVersion = '2.8.1'
-    okHttpVersion = '3.6.0'
-    retrofitVersion = '2.3.0'
+    okHttpVersion = '3.12.12'
+    retrofitVersion = '2.6.0'
     supportVersion = '1.0.0'
     timberVersion = '4.5.1'
     constraintVersion = '2.0.0-alpha2'
-    ankoVersion = '0.8.3'
     koinVersion = '1.0.1'
+    roomVersion = "2.2.5"
+    moshiVersion = "2.6.0"
 
     //Tests
     junitVersion = '4.12'
@@ -40,20 +41,18 @@ ext {
     ]
 
     appDependencies = [
-            rxJava        : "io.reactivex:rxjava:${rxJavaVersion}",
-            rxAndroid     : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
-            rxKotlin      : "io.reactivex.rxjava2:rxkotlin:${rxKotlinVersion}",
-            appCompat     : "androidx.appcompat:appcompat:${supportVersion}",
-            kotlin        : "org.jetbrains.kotlin:kotlin-stdlib-jre7:${kotlinVersion}",
+            appCompat       : "androidx.appcompat:appcompat:${supportVersion}",
+            kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}",
             vectorDrawable  : "androidx.vectordrawable:vectordrawable:${supportVersion}",
             recyclerView    : "androidx.recyclerview:recyclerview:${supportVersion}",
-            material          : "com.google.android.material:material:${supportVersion}",
+            material        : "com.google.android.material:material:${supportVersion}",
             constraintLayout: "androidx.constraintlayout:constraintlayout:${constraintVersion}",
-            anko: "org.jetbrains.anko:anko-common:${ankoVersion}",
-            koin: "org.koin:koin-android:${koinVersion}",
-            retrofit: "com.squareup.retrofit2:retrofit:${retrofitVersion}",
-            adapterRxJava: "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
-            converterGson: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
-            okHttp: "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+            koin            : "org.koin:koin-android:${koinVersion}",
+            retrofit        : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            converterGson   : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okHttp          : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            roomRuntime     : "androidx.room:room-runtime:${roomVersion}",
+            roomCompiler    : "androidx.room:room-compiler:${roomVersion}",
+            roomKtx         : "androidx.room:room-ktx:${roomVersion}",
     ]
 }
