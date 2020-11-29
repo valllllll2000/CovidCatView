@@ -48,17 +48,17 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun showLoading() {
-        //TODO("not implemented")
+        // TODO("not implemented")
     }
 
     override fun hideLoading() {
-        //TODO("not implemented")
+        // TODO("not implemented")
     }
 
-    //TODO: refactor strings
+    // TODO: refactor strings
     override fun display(response: ViewResponse, town: String) {
         Log.d("MainActivity", "channel $response")
-        descriptionTv.text = "${town} Today"
+        descriptionTv.text = "$town Today"
         field1Content.text = "Suspicious cases: ${response.casesNumberSuspicious}"
         field2Content.text = "Confirmed cases: ${response.casesNumberConfirmed}"
         totalTv.text =

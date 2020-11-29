@@ -1,8 +1,8 @@
 package com.vaxapp.covid19.data
 
 import com.vaxapp.covid19.database.DatabaseResponse
-import com.vaxapp.covid19.domain.DomainResponse
 import com.vaxapp.covid19.domain.CasesRepository
+import com.vaxapp.covid19.domain.DomainResponse
 
 class DataCasesRepository(
     private val dataSource: CasesApiDataSource,
@@ -16,7 +16,7 @@ class DataCasesRepository(
 
     private fun saveAndReturn(it: List<Response>): List<DomainResponse> {
         dataBaseDataSource.saveCases(it)
-        return toDomainResponse(dataBaseDataSource.fetchCases("")) //TODO: use town
+        return toDomainResponse(dataBaseDataSource.fetchCases("")) // TODO: use town
     }
 
     private fun toDomainResponse(apiResults: List<DatabaseResponse>): List<DomainResponse> {

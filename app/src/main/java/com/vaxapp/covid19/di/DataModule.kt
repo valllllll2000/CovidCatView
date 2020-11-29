@@ -6,8 +6,6 @@ import com.vaxapp.covid19.data.CasesApiDataSource
 import com.vaxapp.covid19.data.CasesDataBaseDataSource
 import com.vaxapp.covid19.data.DataCasesRepository
 import com.vaxapp.covid19.database.AppDatabase
-import com.vaxapp.covid19.database.DatabaseResponse
-import com.vaxapp.covid19.database.DatabaseResponseDao
 import com.vaxapp.covid19.domain.CasesRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module.module
@@ -17,7 +15,7 @@ val dataModule = module(definition = {
     single(definition = { provideApiDataSource(get()) })
     single(definition = { provideDatabaseDataSource(get()) })
     single(definition = { provideApiService(androidContext()) })
-    //single(definition = { provideDataBaseDao(androidContext()) })
+    // single(definition = { provideDataBaseDao(androidContext()) })
 })
 
 /*fun provideDataBaseDao(androidContext: Context): DatabaseResponseDao {

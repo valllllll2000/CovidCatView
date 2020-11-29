@@ -13,7 +13,7 @@ class CasesDataBaseDataSource(private val casesDao: DatabaseResponseDao) {
         casesDao.insertAll(* toDataBaseResponses(cases).toTypedArray())
     }
 
-    //TODO: move to separate class
+    // TODO: move to separate class
     private fun toDataBaseResponses(cases: List<Response>): List<DatabaseResponse> {
         return cases.map { e -> toDataBaseResponse(e) }
     }

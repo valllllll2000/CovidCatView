@@ -38,7 +38,7 @@ interface ApiService {
                 cacheControl.contains("must-revalidate") || cacheControl.contains("max-age=0")
             ) {
                 originalResponse.newBuilder()
-                    .removeHeader("Pragma") //TODO: is this needed here?
+                    .removeHeader("Pragma") // TODO: is this needed here?
                     .header("Cache-Control", "public, max-age=" + 5000)
                     .build()
             } else {
@@ -46,14 +46,13 @@ interface ApiService {
             }
         }
 
-
         fun create(context: Context): ApiService {
 
             val interceptor = HttpLoggingInterceptor()
             if (BuildConfig.DEBUG) {
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
             }
-            //val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+            // val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
             val cacheSize = (5 * 1024 * 1024).toLong()
             val myCache = Cache(context.cacheDir, cacheSize)
             val client = OkHttpClient.Builder()
